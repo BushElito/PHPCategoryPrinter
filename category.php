@@ -16,7 +16,7 @@ function populate_item_list() {
     }
     $result = mysqli_query($db, "SELECT * FROM `category`");
 
-    echo '<select name="categoryNumber">';
+    echo '<select class="w3-input w3-border" name="categoryNumber">';
     while ($row = mysqli_fetch_assoc($result)) {
         echo "<option value=" . $row['id'] . ">";
         echo $row['name'];

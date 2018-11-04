@@ -41,17 +41,16 @@ class IterativePrinter implements IPrinter {
     private function iterative_print($main_rows) {
         $stack = [];
         $stack[] = $main_rows;
-        echo '<ul>';
+        echo '<ul class="w3-ul w3-hoverable">';
         while (count($stack) > 0) {
             $obj = array_pop($stack);
             if (isset($obj['name'])) {
-                echo "<li style=\"padding-left:" . 40 * $obj['level'] . "px;\">" . $obj['name'];
+                echo "<li style=\"padding-left:" . 40 * $obj['level'] . "px;\">" . $obj['name'] . "</li>";
             }
             foreach (array_reverse($obj['children']) as &$value) {
                 $value['level'] = $obj['level'] + 1;
                 $stack[] = &$value;
             }
-            echo "</li>";
         }
         echo '</ul>';
     }

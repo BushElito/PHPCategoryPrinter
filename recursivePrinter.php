@@ -17,7 +17,7 @@ class RecursivePrinter implements IPrinter {
         $result = mysqli_query($db, "SELECT * FROM `category`");
 
         $rows = [];
-        $main_rows = ['children' => []];
+        $main_rows = ['children' => [], 'name' => ''];
 
         while ($row = mysqli_fetch_assoc($result)) {
             $rows[$row['id']] = ['id' => $row['id'], 'parent' => $row['parent_id'], 
@@ -36,19 +36,18 @@ class RecursivePrinter implements IPrinter {
             $rows[$value['parent']]['children'][] = &$value;
             
         }
-        echo '<ul>';
+        echo '<ul class="w3-ul w3-hoverable">';
         $this->recursive_print($main_rows);
         echo '</ul>';
     }
 
     private function recursive_print($obj) {
-        if (isset($obj['name'])) {
-            echo "<li style=\"padding-left:" . 40 * $obj['level'] . "px;\">" . $obj['name'];
+        if (isset($obj['name']) && isset($obj['level'])) {
+            echo '<li style="padding-left:' . 40 * $obj['level'] . 'px;">' . $obj['name'] . '</li>';
         }
         foreach ($obj['children'] as $value) {
             $this->recursive_print($value);
         }
-        echo "</li>";
     }
 
 }
